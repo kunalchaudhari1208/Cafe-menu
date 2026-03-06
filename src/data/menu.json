@@ -1,0 +1,9 @@
+{
+  "Beverages": [
+    { "name": "Cold Coffee", "price": 80 },
+    { "name": "Hot Chocolate", "price": 60 }
+  ],
+  "Snacks": [
+    { "name": "Veg Sandwich", "price": 110 }
+  ]
+}
