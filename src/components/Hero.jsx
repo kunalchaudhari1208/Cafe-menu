@@ -3,7 +3,7 @@ import heroImg from "../assets/hero.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative h-[60vh] overflow-hidden">
+    <section className="relative h-[50vh] md:h-[70vh] overflow-hidden">
 
       {/* Background Image */}
       <motion.img
@@ -21,11 +21,11 @@ const Hero = () => {
       {/* Center Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
         
-     <motion.h1
+   <motion.h1
   initial={{ opacity: 0, y: 60 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 1 }}
-  className="text-white text-6xl md:text-7xl font-serif tracking-widest"
+  className="text-white text-4xl md:text-7xl font-serif tracking-widest text-center px-4"
 >
   Café Durga
 </motion.h1>

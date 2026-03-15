@@ -1,63 +1,56 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Tilt from "react-parallax-tilt";
 
 const Section = ({ id, title, image, items, index }) => {
   const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+
   const isReverse = index % 2 !== 0;
 
   return (
     <section
       ref={ref}
       id={id}
-      className="py-28 px-6 bg-section border-b border-gray-200 overflow-hidden"
+      className="py-24 px-6 bg-section border-b border-gray-200 overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
 
-        {/* Heading */}
+        {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="font-serif text-5xl md:text-6xl tracking-wide mb-4 text-center"
+          className="font-serif text-5xl md:text-6xl tracking-wide mb-16 text-center"
         >
           {title}
         </motion.h2>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: "90px" }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="h-[2px] bg-accent mx-auto mb-16"
-        />
-
         <div className={`grid md:grid-cols-2 gap-14 items-center`}>
 
-          {/* Image Reveal Mask */}
+          {/* Parallax Image */}
           <motion.div
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
-            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="overflow-hidden rounded-xl"
+            style={{ y }}
+            className={`${isReverse ? "md:order-2" : ""}`}
           >
-           <Tilt glareEnable={true} glareMaxOpacity={0.2} scale={1.05}>
-  <motion.img
-    src={image}
-    alt={title}
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    transition={{ duration: 0.8 }}
-    className="w-full rounded-xl shadow-xl"
-  />
-</Tilt>
+            <Tilt scale={1.05} glareEnable={true} glareMaxOpacity={0.2}>
+              <img
+                src={image}
+                alt={title}
+                className="w-full rounded-2xl shadow-xl"
+              />
+            </Tilt>
           </motion.div>
 
           {/* Menu Items */}
-          <div className="space-y-6">
+          <div className={`space-y-6 ${isReverse ? "md:order-1" : ""}`}>
             {items.map((item, i) => (
               <motion.div
                 key={i}
